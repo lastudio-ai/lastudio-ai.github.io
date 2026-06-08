@@ -353,6 +353,9 @@ function parseParameters(value) {
 }
 
 function getModelIdFromUrl() {
+  if (window.initialModelId) {
+    return window.initialModelId;
+  }
   const hash = window.location.hash;
   if (hash.startsWith("#/models/")) {
     return hash.replace("#/models/", "");
