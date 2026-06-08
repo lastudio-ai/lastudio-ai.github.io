@@ -1,4 +1,4 @@
-const CATALOG_URL = "./data/catalog.json";
+const CATALOG_URL = window.catalogUrl || "./data/catalog.json";
 const CAPABILITY_META = {
   tts: { label: "TTS", className: "icon-tts", title: "Text to speech" },
   "voice-cloning": { label: "C", className: "icon-clone", title: "Voice cloning" },
@@ -10,7 +10,8 @@ const state = {
   models: [],
   query: "",
   capabilities: new Set(Object.keys(CAPABILITY_META)),
-  sort: "featured"
+  sort: "featured",
+  selectedModelId: null
 };
 
 const elements = {
@@ -21,7 +22,10 @@ const elements = {
   search: document.querySelector("#model-search"),
   sort: document.querySelector("#sort-models"),
   capabilityInputs: document.querySelectorAll(".capability-filter input"),
-  template: document.querySelector("#model-card-template")
+  template: document.querySelector("#model-card-template"),
+  shell: document.querySelector(".catalog-shell"),
+  detailPane: document.querySelector("#model-detail-pane"),
+  detailTemplate: document.querySelector("#model-detail-template")
 };
 
 init();
@@ -37,6 +41,12 @@ async function init() {
     state.models = buildModels(catalog);
     elements.version.textContent = `Catalog ${catalog.version || "local"}`;
     bindControls();
+
+    const initialModelId = getModelIdFromUrl();
+    if (initialModelId) {
+      state.selectedModelId = initialModelId;
+    }
+
     render();
   } catch (error) {
     elements.count.textContent = "Unable to load catalog.";
@@ -65,6 +75,14 @@ function bindControls() {
       );
       render();
     });
+  });
+
+  window.addEventListener("hashchange", () => {
+    const modelId = getModelIdFromUrl();
+    if (modelId !== state.selectedModelId) {
+      state.selectedModelId = modelId;
+      render();
+    }
   });
 }
 
@@ -109,6 +127,8 @@ function buildModels(catalog) {
       languageCount,
       files,
       runtimes,
+      stats: family.stats || {},
+      readme: family.hubFiles?.readme?.content || "",
       order: pickOrder.has(family.id) ? pickOrder.get(family.id) : 100 + index
     };
   });
@@ -143,6 +163,11 @@ function render() {
   elements.list.replaceChildren(...models.map(renderCard));
   elements.empty.hidden = models.length !== 0;
   elements.count.textContent = `${models.length} of ${state.models.length} models`;
+
+  const selectedModel = state.models.find(
+    (m) => m.modelId === state.selectedModelId || m.id === state.selectedModelId
+  );
+  renderDetailPane(selectedModel);
 }
 
 function filteredModels() {
@@ -212,8 +237,19 @@ function renderCard(model) {
   tags.replaceChildren(...model.tags.slice(0, 8).map((tag) => createBadge(tag, "tag")));
   files.replaceChildren(...model.files.slice(0, 12).map(renderFile));
 
-  repoLink.href = model.modelId ? `https://huggingface.co/${model.modelId}` : "#";
-  repoLink.textContent = model.modelId ? "Open on Hugging Face" : "Model details";
+  if (model.id === state.selectedModelId || model.modelId === state.selectedModelId) {
+    card.classList.add("is-active");
+  }
+
+  card.addEventListener("click", (e) => {
+    if (e.target.tagName === "A" && e.target.classList.contains("repo-link")) {
+      e.preventDefault();
+    }
+    selectModel(model.modelId || model.id);
+  });
+
+  repoLink.href = `#/models/${model.modelId || model.id}`;
+  repoLink.textContent = "Model details";
   updated.textContent = model.categories.length ? model.categories.join(" / ") : "LA Studio curated";
 
   if (!model.description) {
@@ -314,4 +350,161 @@ function parseParameters(value) {
     return number / 1000;
   }
   return number;
+}
+
+function getModelIdFromUrl() {
+  const hash = window.location.hash;
+  if (hash.startsWith("#/models/")) {
+    return hash.replace("#/models/", "");
+  }
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("model")) {
+    return params.get("model");
+  }
+  const path = window.location.pathname;
+  const match = path.match(/\/models\/([^/]+\/[^/]+)\/?$/);
+  if (match) {
+    return match[1];
+  }
+  return null;
+}
+
+function selectModel(modelId) {
+  state.selectedModelId = modelId;
+  if (modelId) {
+    window.location.hash = `#/models/${modelId}`;
+  } else {
+    if (window.location.hash.startsWith("#/models/")) {
+      window.location.hash = "";
+    }
+  }
+  render();
+}
+
+function renderDetailPane(model) {
+  if (!model) {
+    elements.detailPane.hidden = true;
+    elements.shell.classList.remove("has-selected-model");
+    return;
+  }
+
+  elements.shell.classList.add("has-selected-model");
+  elements.detailPane.hidden = false;
+
+  const fragment = elements.detailTemplate.content.cloneNode(true);
+  
+  fragment.querySelector(".detail-title").textContent = model.modelId || model.id;
+  fragment.querySelector(".detail-desc").textContent = model.subtitle || model.description;
+  
+  fragment.querySelector(".copy-id-btn").addEventListener("click", () => {
+    navigator.clipboard.writeText(model.modelId || model.id);
+    const btn = elements.detailPane.querySelector(".copy-id-btn");
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '✓';
+    setTimeout(() => {
+      if (btn) btn.innerHTML = originalHTML;
+    }, 1500);
+  });
+
+  const downloads = model.stats?.displayDownloads || model.stats?.upstreamDownloads || 0;
+  const likes = model.stats?.upstreamLikes || 0;
+  const rawDate = model.stats?.updatedAt;
+  
+  fragment.querySelector(".downloads-stat").textContent = `↓ ${downloads.toLocaleString()}`;
+  fragment.querySelector(".likes-stat").textContent = `★ ${likes.toLocaleString()}`;
+  fragment.querySelector(".updated-stat").textContent = rawDate 
+    ? `Last updated: ${new Date(rawDate).toLocaleDateString()}` 
+    : "LA Studio curated";
+
+  const isPick = state.models.some(m => m.id === model.id && m.order < 100);
+  if (!isPick) {
+    fragment.querySelector(".staff-pick-badge").style.display = "none";
+  }
+
+  fragment.querySelector(".params-chip").textContent = `Params: ${model.params || "N/A"}`;
+  
+  const arch = model.tags.find(t => ["gguf", "ggml", "safetensors"].indexOf(t.toLowerCase()) === -1) || model.id.split("-")[0];
+  fragment.querySelector(".arch-chip").textContent = `Arch: ${arch}`;
+
+  const capsContainer = fragment.querySelector(".detail-capabilities-list");
+  capsContainer.replaceChildren(...model.capabilities.map(createCapabilityIcon));
+
+  const select = fragment.querySelector(".variant-select");
+  const downloadBtn = fragment.querySelector(".download-action-btn");
+  
+  select.replaceChildren(
+    ...model.files.map((file) => {
+      const opt = document.createElement("option");
+      opt.value = file.file;
+      opt.textContent = `${file.file} (${file.size || "Required"})`;
+      return opt;
+    })
+  );
+
+  const updateDownloadLink = () => {
+    const selectedFile = select.value;
+    if (model.modelId && selectedFile) {
+      downloadBtn.href = `https://huggingface.co/${model.modelId}/resolve/main/${selectedFile}`;
+      downloadBtn.style.display = "inline-block";
+    } else {
+      downloadBtn.href = "#";
+      downloadBtn.style.display = "none";
+    }
+  };
+
+  select.addEventListener("change", updateDownloadLink);
+  updateDownloadLink();
+
+  const readmeContent = fragment.querySelector(".readme-content");
+  if (model.readme) {
+    readmeContent.innerHTML = renderMarkdown(model.readme);
+  } else {
+    readmeContent.textContent = "No README available for this model.";
+  }
+
+  fragment.querySelector(".close-detail-btn").addEventListener("click", () => {
+    selectModel(null);
+  });
+
+  elements.detailPane.replaceChildren(fragment);
+}
+
+function renderMarkdown(md) {
+  if (!md) return "";
+  
+  const codeBlocks = [];
+  let html = md.replace(/```([\s\S]*?)```/g, (match, code) => {
+    codeBlocks.push(code);
+    return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+  });
+
+  html = html
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  html = html.replace(/__CODE_BLOCK_(\d+)__/g, (match, index) => {
+    return `<pre><code>${codeBlocks[index].trim()}</code></pre>`;
+  });
+
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+
+  html = html.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
+  html = html.replace(/<\/ul>\s*<ul>/g, '');
+
+  html = html.split(/\n{2,}/).map(p => {
+    if (p.trim().startsWith('<h') || p.trim().startsWith('<pre') || p.trim().startsWith('<ul') || p.trim().startsWith('<ol')) {
+      return p;
+    }
+    return `<p>${p.replace(/\n/g, '<br>')}</p>`;
+  }).join('\n');
+
+  return html;
 }
