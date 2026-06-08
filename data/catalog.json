@@ -1,0 +1,3278 @@
+{
+  "schemaVersion": "1.0.0",
+  "version": "0.1.7",
+  "modelPicks": [
+    {
+      "id": "lastudio-picks",
+      "title": "LA Studio Picks",
+      "description": "All model families currently curated and used by LA Studio workflows.",
+      "items": [
+        {
+          "familyId": "qwen3-tts-0.6b-base",
+          "modelId": "cstr/qwen3-tts-0.6b-base-GGUF",
+          "reason": "Lightweight Qwen3 voice-cloning baseline for fast local iteration."
+        },
+        {
+          "familyId": "qwen3-tts-1.7b-base",
+          "modelId": "cstr/qwen3-tts-1.7b-base-GGUF",
+          "reason": "Larger Qwen3 base model for higher quality voice cloning."
+        },
+        {
+          "familyId": "qwen3-tts-1.7b-customvoice",
+          "modelId": "cstr/qwen3-tts-1.7b-customvoice-GGUF",
+          "reason": "Qwen3 custom voice workflow with reference conditioning."
+        },
+        {
+          "familyId": "qwen3-tts-1.7b-voicedesign",
+          "modelId": "cstr/qwen3-tts-1.7b-voicedesign-GGUF",
+          "reason": "Qwen3 voice design model for generating voices from text descriptions."
+        },
+        {
+          "familyId": "vibevoice",
+          "modelId": "mudler/vibevoice.cpp-models",
+          "reason": "Realtime-oriented speech generation and reference voice workflow."
+        },
+        {
+          "familyId": "vieneu-tts-v2-turbo",
+          "modelId": "pnnbao-ump/VieNeu-TTS-v2-Turbo-GGUF",
+          "reason": "Vietnamese-focused TTS model for LA Studio speech workflows."
+        },
+        {
+          "familyId": "omnivoice",
+          "modelId": "Serveurperso/OmniVoice-GGUF",
+          "reason": "High quality multilingual TTS, voice cloning, and voice design package."
+        },
+        {
+          "familyId": "kokoro",
+          "modelId": "cstr/kokoro-82m-GGUF",
+          "reason": "Small multilingual preset-voice TTS with practical CPU runtime options."
+        },
+        {
+          "familyId": "whisper.cpp",
+          "modelId": "ggerganov/whisper.cpp",
+          "reason": "Offline multilingual speech recognition and translation backend."
+        }
+      ]
+    }
+  ],
+  "modelCategories": [
+    {
+      "id": "voice-cloning",
+      "name": "Voice Cloning",
+      "title": "Voice Cloning",
+      "description": "Model packages for zero-shot voice cloning and reference-audio speech generation.",
+      "capabilities": [
+        "voice-cloning",
+        "tts"
+      ],
+      "items": [
+        {
+          "id": "omnivoice-tts",
+          "name": "OmniVoice TTS (Base + Codec)",
+          "realId": "Serveurperso/OmniVoice-GGUF",
+          "localDir": "omnivoice",
+          "task": "tts",
+          "desc": "Advanced voice cloning and zero-shot TTS. Requires BOTH a Base Model and a Tokenizer to function. We recommend Q8_0 for the Base and F32 for the Tokenizer.",
+          "tags": [
+            "text-to-speech",
+            "voice-cloning",
+            "gguf"
+          ],
+          "params": "1B",
+          "isPackage": true,
+          "components": [
+            {
+              "name": "1. Language Model (Base)",
+              "variants": [
+                {
+                  "name": "Q8_0 (Recommended)",
+                  "file": "omnivoice-base-Q8_0.gguf",
+                  "size": "656 MB",
+                  "tags": [
+                    "q8_0"
+                  ]
+                },
+                {
+                  "name": "Q4_K_M (Fastest)",
+                  "file": "omnivoice-base-Q4_K_M.gguf",
+                  "size": "407 MB",
+                  "tags": [
+                    "q4_k_m"
+                  ]
+                },
+                {
+                  "name": "BF16 (Standard)",
+                  "file": "omnivoice-base-BF16.gguf",
+                  "size": "1.23 GB",
+                  "tags": [
+                    "bf16"
+                  ]
+                },
+                {
+                  "name": "F32 (Master)",
+                  "file": "omnivoice-base-F32.gguf",
+                  "size": "2.46 GB",
+                  "tags": [
+                    "f32"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "2. Audio Codec (Tokenizer)",
+              "variants": [
+                {
+                  "name": "F32 (Recommended)",
+                  "file": "omnivoice-tokenizer-F32.gguf",
+                  "size": "734 MB",
+                  "tags": [
+                    "f32"
+                  ]
+                },
+                {
+                  "name": "BF16",
+                  "file": "omnivoice-tokenizer-BF16.gguf",
+                  "size": "373 MB",
+                  "tags": [
+                    "bf16"
+                  ]
+                },
+                {
+                  "name": "Q8_0",
+                  "file": "omnivoice-tokenizer-Q8_0.gguf",
+                  "size": "289 MB",
+                  "tags": [
+                    "q8_0"
+                  ]
+                },
+                {
+                  "name": "Q4_K_M",
+                  "file": "omnivoice-tokenizer-Q4_K_M.gguf",
+                  "size": "252 MB",
+                  "tags": [
+                    "q4_k_m"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "voice-design",
+      "name": "Voice Design",
+      "title": "Voice Design",
+      "description": "Model packages for generating custom voices from descriptive text prompts.",
+      "capabilities": [
+        "voice-design"
+      ],
+      "items": [
+        {
+          "id": "qwen3-tts-1.7b-voicedesign-item",
+          "name": "Qwen3-TTS 1.7B VoiceDesign",
+          "realId": "cstr/qwen3-tts-1.7b-voicedesign-GGUF",
+          "localDir": "qwen3-tts-1.7b-voicedesign",
+          "task": "voice-design",
+          "desc": "Expressive voice generation from instructions. Requires both the model and the tokenizer.",
+          "tags": [
+            "voice-design",
+            "gguf"
+          ],
+          "params": "1.7B",
+          "isPackage": true,
+          "components": [
+            {
+              "name": "1. VoiceDesign Model",
+              "variants": [
+                {
+                  "name": "Q8_0 (Recommended)",
+                  "file": "qwen3-tts-12hz-1.7b-voicedesign-q8_0.gguf",
+                  "size": "1.8 GB",
+                  "tags": [
+                    "q8_0"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "2. Audio Codec (Tokenizer)",
+              "variants": [
+                {
+                  "name": "Tokenizer (Required)",
+                  "modelId": "cstr/qwen3-tts-tokenizer-12hz-GGUF",
+                  "file": "qwen3-tts-tokenizer-12hz.gguf",
+                  "size": "700 MB",
+                  "tags": [
+                    "tokenizer"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "omnivoice-voicedesign-item",
+          "name": "OmniVoice TTS (Base + Codec)",
+          "realId": "Serveurperso/OmniVoice-GGUF",
+          "localDir": "omnivoice",
+          "task": "voice-design",
+          "desc": "Advanced voice cloning, text-to-speech, and voice design.",
+          "tags": [
+            "text-to-speech",
+            "voice-cloning",
+            "voice-design",
+            "gguf"
+          ],
+          "params": "1B",
+          "isPackage": true,
+          "components": [
+            {
+              "name": "1. Language Model (Base)",
+              "variants": [
+                {
+                  "name": "Q8_0 (Recommended)",
+                  "file": "omnivoice-base-Q8_0.gguf",
+                  "size": "656 MB",
+                  "tags": [
+                    "q8_0"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "2. Audio Codec (Tokenizer)",
+              "variants": [
+                {
+                  "name": "F32 (Recommended)",
+                  "file": "omnivoice-tokenizer-F32.gguf",
+                  "size": "734 MB",
+                  "tags": [
+                    "f32"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "speech-generation-and-recognition",
+      "name": "Speech Generation & Recognition",
+      "title": "Speech Generation & Recognition",
+      "description": "Model packages that provide both speech generation and speech recognition workflows.",
+      "capabilities": [
+        "tts",
+        "voice-cloning",
+        "stt"
+      ],
+      "items": [
+        {
+          "id": "vibevoice-bundle",
+          "name": "VibeVoice (TTS & ASR Model Bundle)",
+          "realId": "mudler/vibevoice.cpp-models",
+          "localDir": "vibevoice",
+          "task": "tts",
+          "desc": "Microsoft VibeVoice ported to C/C++ on top of GGML. Supports both Text-to-Speech (with voice cloning) and Automatic Speech Recognition (transcription). Requires the Tokenizer to function.",
+          "tags": [
+            "text-to-speech",
+            "voice-cloning",
+            "ASR",
+            "gguf"
+          ],
+          "params": "500M",
+          "isPackage": true,
+          "components": [
+            {
+              "name": "1. Text-to-Speech (TTS)",
+              "variants": [
+                {
+                  "name": "Realtime TTS (0.5B Q8_0)",
+                  "file": "vibevoice-realtime-0.5B-q8_0.gguf",
+                  "size": "1.6 GB",
+                  "tags": [
+                    "q8_0",
+                    "tts"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "2. Speech-to-Text (ASR)",
+              "variants": [
+                {
+                  "name": "ASR Model (Q8_0 - Recommended)",
+                  "file": "vibevoice-asr-q8_0.gguf",
+                  "size": "13.0 GB",
+                  "tags": [
+                    "q8_0",
+                    "asr"
+                  ]
+                },
+                {
+                  "name": "ASR Model (Q4_K - Faster)",
+                  "file": "vibevoice-asr-q4_k.gguf",
+                  "size": "10.0 GB",
+                  "tags": [
+                    "q4_k",
+                    "asr"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "3. Audio Tokenizer & References",
+              "variants": [
+                {
+                  "name": "Tokenizer (Required)",
+                  "file": "tokenizer.gguf",
+                  "size": "5.9 MB",
+                  "tags": [
+                    "tokenizer"
+                  ]
+                },
+                {
+                  "name": "Reference Voice: Carter (Male)",
+                  "file": "voice-en-Carter_man.gguf",
+                  "size": "8.0 MB",
+                  "tags": [
+                    "voice",
+                    "male"
+                  ]
+                },
+                {
+                  "name": "Reference Voice: Emma (Female)",
+                  "file": "voice-en-Emma.gguf",
+                  "size": "6.0 MB",
+                  "tags": [
+                    "voice",
+                    "female"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "preset-voice-tts",
+      "name": "Preset Voice TTS",
+      "title": "Preset Voice TTS",
+      "description": "Text-to-speech packages built around fixed or packaged speaker voices.",
+      "capabilities": [
+        "tts"
+      ],
+      "items": [
+        {
+          "id": "kokoro-tts",
+          "name": "Kokoro 82M (GGUF + Voice Pack)",
+          "realId": "cstr/kokoro-82m-GGUF",
+          "localDir": "kokoro",
+          "task": "tts",
+          "desc": "Small, fast multilingual TTS using the CrispASR Kokoro runtime. Requires a Kokoro model GGUF and one kokoro-voice-*.gguf voice pack.",
+          "tags": [
+            "text-to-speech",
+            "kokoro",
+            "gguf",
+            "multilingual"
+          ],
+          "params": "82M",
+          "isPackage": true,
+          "components": [
+            {
+              "name": "1. Kokoro Backbone",
+              "variants": [
+                {
+                  "name": "Kokoro 82M F16",
+                  "file": "kokoro-82m-f16.gguf",
+                  "size": "330 MB",
+                  "tags": [
+                    "f16",
+                    "model"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "2. Voice Pack",
+              "variants": [
+                {
+                  "name": "AF Heart (English)",
+                  "modelId": "cstr/kokoro-voices-GGUF",
+                  "file": "kokoro-voice-af_heart.gguf",
+                  "size": "0.6 MB",
+                  "tags": [
+                    "voice",
+                    "english"
+                  ]
+                },
+                {
+                  "name": "FF Siwis (Fallback)",
+                  "modelId": "cstr/kokoro-voices-GGUF",
+                  "file": "kokoro-voice-ff_siwis.gguf",
+                  "size": "0.6 MB",
+                  "tags": [
+                    "voice",
+                    "fallback"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "general-tts",
+      "name": "General TTS",
+      "title": "General TTS",
+      "description": "General purpose text-to-speech models.",
+      "capabilities": [
+        "tts"
+      ],
+      "items": [
+        {
+          "id": "parler-tts/parler-tts-mini-v1",
+          "name": "Parler TTS Mini v1",
+          "realId": "parler-tts/parler-tts-mini-v1",
+          "localDir": "parler-tts-mini-v1",
+          "task": "tts",
+          "file": "model.safetensors",
+          "size": "2.3 GB",
+          "desc": "High-quality, expressive TTS model.",
+          "tags": [
+            "text-to-speech",
+            "english"
+          ],
+          "params": "880M"
+        },
+        {
+          "id": "microsoft/speecht5_tts",
+          "name": "SpeechT5 TTS",
+          "realId": "microsoft/speecht5_tts",
+          "localDir": "speecht5_tts",
+          "task": "tts",
+          "file": "pytorch_model.bin",
+          "size": "560 MB",
+          "desc": "Standard TTS model for English.",
+          "tags": [
+            "text-to-speech",
+            "english"
+          ],
+          "params": "144M"
+        }
+      ]
+    },
+    {
+      "id": "speech-to-text",
+      "name": "Speech to Text",
+      "title": "Speech to Text",
+      "description": "Automatic speech recognition and transcription models.",
+      "capabilities": [
+        "stt"
+      ],
+      "items": [
+        {
+          "id": "whisper-tiny",
+          "name": "Whisper Tiny",
+          "realId": "ggerganov/whisper.cpp",
+          "localDir": "whisper",
+          "task": "stt",
+          "desc": "Whisper Tiny (39M parameters). Fastest model for basic transcription. Needs very little RAM.",
+          "tags": [
+            "ASR",
+            "ggml",
+            "openai"
+          ],
+          "params": "39M",
+          "variants": [
+            {
+              "name": "Multilingual (f16)",
+              "file": "ggml-tiny.bin",
+              "size": "75 MB",
+              "tags": [
+                "multi",
+                "f16"
+              ]
+            },
+            {
+              "name": "English Only (f16)",
+              "file": "ggml-tiny.en.bin",
+              "size": "75 MB",
+              "tags": [
+                "en",
+                "f16"
+              ]
+            },
+            {
+              "name": "Multilingual (q5_1)",
+              "file": "ggml-tiny-q5_1.bin",
+              "size": "31 MB",
+              "tags": [
+                "multi",
+                "q5_1"
+              ]
+            },
+            {
+              "name": "English Only (q5_1)",
+              "file": "ggml-tiny.en-q5_1.bin",
+              "size": "31 MB",
+              "tags": [
+                "en",
+                "q5_1"
+              ]
+            },
+            {
+              "name": "Multilingual (q8_0)",
+              "file": "ggml-tiny-q8_0.bin",
+              "size": "40 MB",
+              "tags": [
+                "multi",
+                "q8_0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whisper-base",
+          "name": "Whisper Base",
+          "realId": "ggerganov/whisper.cpp",
+          "localDir": "whisper",
+          "task": "stt",
+          "desc": "Whisper Base (74M parameters). Fast model with decent accuracy.",
+          "tags": [
+            "ASR",
+            "ggml",
+            "openai"
+          ],
+          "params": "74M",
+          "variants": [
+            {
+              "name": "Multilingual (f16)",
+              "file": "ggml-base.bin",
+              "size": "142 MB",
+              "tags": [
+                "multi",
+                "f16"
+              ]
+            },
+            {
+              "name": "English Only (f16)",
+              "file": "ggml-base.en.bin",
+              "size": "142 MB",
+              "tags": [
+                "en",
+                "f16"
+              ]
+            },
+            {
+              "name": "Multilingual (q5_1)",
+              "file": "ggml-base-q5_1.bin",
+              "size": "57 MB",
+              "tags": [
+                "multi",
+                "q5_1"
+              ]
+            },
+            {
+              "name": "English Only (q5_1)",
+              "file": "ggml-base.en-q5_1.bin",
+              "size": "57 MB",
+              "tags": [
+                "en",
+                "q5_1"
+              ]
+            },
+            {
+              "name": "Multilingual (q8_0)",
+              "file": "ggml-base-q8_0.bin",
+              "size": "78 MB",
+              "tags": [
+                "multi",
+                "q8_0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whisper-small",
+          "name": "Whisper Small",
+          "realId": "ggerganov/whisper.cpp",
+          "localDir": "whisper",
+          "task": "stt",
+          "desc": "Whisper Small (244M parameters). Good balance of speed and accuracy for transcription.",
+          "tags": [
+            "ASR",
+            "ggml",
+            "openai"
+          ],
+          "params": "244M",
+          "variants": [
+            {
+              "name": "Multilingual (f16)",
+              "file": "ggml-small.bin",
+              "size": "466 MB",
+              "tags": [
+                "multi",
+                "f16"
+              ]
+            },
+            {
+              "name": "English Only (f16)",
+              "file": "ggml-small.en.bin",
+              "size": "466 MB",
+              "tags": [
+                "en",
+                "f16"
+              ]
+            },
+            {
+              "name": "Multilingual (q5_1)",
+              "file": "ggml-small-q5_1.bin",
+              "size": "181 MB",
+              "tags": [
+                "multi",
+                "q5_1"
+              ]
+            },
+            {
+              "name": "English Only (q5_1)",
+              "file": "ggml-small.en-q5_1.bin",
+              "size": "181 MB",
+              "tags": [
+                "en",
+                "q5_1"
+              ]
+            },
+            {
+              "name": "Multilingual (q8_0)",
+              "file": "ggml-small-q8_0.bin",
+              "size": "258 MB",
+              "tags": [
+                "multi",
+                "q8_0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whisper-medium",
+          "name": "Whisper Medium",
+          "realId": "ggerganov/whisper.cpp",
+          "localDir": "whisper",
+          "task": "stt",
+          "desc": "Whisper Medium (769M parameters). Very high accuracy, suitable for multilingual.",
+          "tags": [
+            "ASR",
+            "ggml",
+            "openai"
+          ],
+          "params": "769M",
+          "variants": [
+            {
+              "name": "Multilingual (f16)",
+              "file": "ggml-medium.bin",
+              "size": "1.5 GB",
+              "tags": [
+                "multi",
+                "f16"
+              ]
+            },
+            {
+              "name": "English Only (f16)",
+              "file": "ggml-medium.en.bin",
+              "size": "1.5 GB",
+              "tags": [
+                "en",
+                "f16"
+              ]
+            },
+            {
+              "name": "Multilingual (q5_0)",
+              "file": "ggml-medium-q5_0.bin",
+              "size": "544 MB",
+              "tags": [
+                "multi",
+                "q5_0"
+              ]
+            },
+            {
+              "name": "English Only (q5_0)",
+              "file": "ggml-medium.en-q5_0.bin",
+              "size": "544 MB",
+              "tags": [
+                "en",
+                "q5_0"
+              ]
+            },
+            {
+              "name": "Multilingual (q8_0)",
+              "file": "ggml-medium-q8_0.bin",
+              "size": "813 MB",
+              "tags": [
+                "multi",
+                "q8_0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "whisper-large-v3",
+          "name": "Whisper Large v3",
+          "realId": "ggerganov/whisper.cpp",
+          "localDir": "whisper",
+          "task": "stt",
+          "desc": "Whisper Large v3 (1550M parameters). State of the art transcription.",
+          "tags": [
+            "ASR",
+            "ggml",
+            "openai"
+          ],
+          "params": "1550M",
+          "variants": [
+            {
+              "name": "Multilingual (f16)",
+              "file": "ggml-large-v3.bin",
+              "size": "3.1 GB",
+              "tags": [
+                "multi",
+                "f16"
+              ]
+            },
+            {
+              "name": "Multilingual (q5_0)",
+              "file": "ggml-large-v3-q5_0.bin",
+              "size": "1.1 GB",
+              "tags": [
+                "multi",
+                "q5_0"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ttsFamilies": [
+    {
+      "id": "qwen3-tts-0.6b-base",
+      "localDir": "qwen3-tts-0.6b-base",
+      "shortName": "Q3B6",
+      "title": "Qwen3-TTS Base 0.6B",
+      "subtitle": "Fast zero-shot voice cloning",
+      "description": "Lightweight Qwen3-TTS base model for fast zero-shot voice cloning from reference audio. Requires 24kHz reference WAV and transcript.",
+      "accent": "#f5a623",
+      "modelId": "cstr/qwen3-tts-0.6b-base-GGUF",
+      "capabilities": [
+        "voice-cloning"
+      ],
+      "supportsTts": false,
+      "supportsCloning": true,
+      "tags": [
+        "GGUF",
+        "Voice-Cloning",
+        "Fast",
+        "0.6B"
+      ],
+      "supportedLanguages": [
+        {
+          "text": "Chinese (zh)",
+          "value": "zh"
+        },
+        {
+          "text": "English (en)",
+          "value": "en"
+        },
+        {
+          "text": "Japanese (ja)",
+          "value": "ja"
+        },
+        {
+          "text": "Korean (ko)",
+          "value": "ko"
+        }
+      ],
+      "parameterDefinitions": {
+        "temperature": {
+          "name": "Temperature",
+          "type": "float",
+          "min": 0.1,
+          "max": 2.0,
+          "default": 1.0,
+          "description": "Randomness of the generation."
+        },
+        "seed": {
+          "name": "Seed",
+          "type": "int",
+          "min": -1,
+          "max": 2147483647,
+          "default": -1,
+          "description": "Random seed for reproducibility."
+        },
+        "max_codec_steps": {
+          "name": "Max Codec Steps",
+          "type": "int",
+          "min": 1,
+          "max": 200,
+          "default": 100,
+          "description": "Maximum number of steps for the audio codec decoder.",
+          "advanced": true
+        }
+      },
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Qwen3-TTS Model",
+          "purpose": "Core 0.6B Base model",
+          "file": "qwen3-tts-12hz-0.6b-base-q8_0.gguf",
+          "size": "650 MB",
+          "candidates": [
+            "qwen3-tts-12hz-0.6b-base-q8_0.gguf",
+            "qwen3-tts-12hz-0.6b-base.gguf"
+          ]
+        },
+        {
+          "role": "tokenizer",
+          "modelId": "cstr/qwen3-tts-tokenizer-12hz-GGUF",
+          "name": "Audio Codec",
+          "purpose": "12Hz Audio Tokenizer",
+          "file": "qwen3-tts-tokenizer-12hz.gguf",
+          "size": "700 MB",
+          "candidates": [
+            "qwen3-tts-tokenizer-12hz.gguf"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "crispasr-win-x86_64-cpu",
+          "engineFamily": "crispasr",
+          "label": "CPU",
+          "name": "CPU CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-cuda",
+          "engineFamily": "crispasr",
+          "label": "CUDA",
+          "name": "CUDA CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-cuda.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-vulkan",
+          "engineFamily": "crispasr",
+          "label": "Vulkan",
+          "name": "Vulkan CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-vulkan.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        }
+      ],
+      "studio": {
+        "voice-cloning": {
+          "layout": "voice-cloning",
+          "parameters": [
+            "temperature",
+            "seed",
+            "max_codec_steps"
+          ]
+        }
+      }
+    },
+    {
+      "id": "qwen3-tts-1.7b-base",
+      "localDir": "qwen3-tts-1.7b-base",
+      "shortName": "Q3B17",
+      "title": "Qwen3-TTS Base 1.7B",
+      "subtitle": "High-fidelity zero-shot voice cloning",
+      "description": "High-fidelity Qwen3-TTS base model for zero-shot voice cloning from reference audio. Provides better prosody and quality than 0.6B.",
+      "accent": "#bd10e0",
+      "modelId": "cstr/qwen3-tts-1.7b-base-GGUF",
+      "capabilities": [
+        "voice-cloning"
+      ],
+      "supportsTts": false,
+      "supportsCloning": true,
+      "tags": [
+        "GGUF",
+        "Voice-Cloning",
+        "High-Fidelity",
+        "1.7B"
+      ],
+      "supportedLanguages": [
+        {
+          "text": "Chinese (zh)",
+          "value": "zh"
+        },
+        {
+          "text": "English (en)",
+          "value": "en"
+        },
+        {
+          "text": "Japanese (ja)",
+          "value": "ja"
+        },
+        {
+          "text": "Korean (ko)",
+          "value": "ko"
+        }
+      ],
+      "parameterDefinitions": {
+        "temperature": {
+          "name": "Temperature",
+          "type": "float",
+          "min": 0.1,
+          "max": 2.0,
+          "default": 1.0,
+          "description": "Randomness of the generation."
+        },
+        "seed": {
+          "name": "Seed",
+          "type": "int",
+          "min": -1,
+          "max": 2147483647,
+          "default": -1,
+          "description": "Random seed for reproducibility."
+        },
+        "max_codec_steps": {
+          "name": "Max Codec Steps",
+          "type": "int",
+          "min": 1,
+          "max": 200,
+          "default": 100,
+          "description": "Maximum number of steps for the audio codec decoder.",
+          "advanced": true
+        }
+      },
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Qwen3-TTS Model",
+          "purpose": "Core 1.7B Base model",
+          "file": "qwen3-tts-12hz-1.7b-base-q8_0.gguf",
+          "size": "1.8 GB",
+          "candidates": [
+            "qwen3-tts-12hz-1.7b-base-q8_0.gguf",
+            "qwen3-tts-12hz-1.7b-base.gguf"
+          ]
+        },
+        {
+          "role": "tokenizer",
+          "modelId": "cstr/qwen3-tts-tokenizer-12hz-GGUF",
+          "name": "Audio Codec",
+          "purpose": "12Hz Audio Tokenizer",
+          "file": "qwen3-tts-tokenizer-12hz.gguf",
+          "size": "700 MB",
+          "candidates": [
+            "qwen3-tts-tokenizer-12hz.gguf"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "crispasr-win-x86_64-cpu",
+          "engineFamily": "crispasr",
+          "label": "CPU",
+          "name": "CPU CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64.tar.gz",
+          "version": "v0.7.0",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-cuda",
+          "engineFamily": "crispasr",
+          "label": "CUDA",
+          "name": "CUDA CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-cuda.tar.gz",
+          "version": "v0.7.0",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-vulkan",
+          "engineFamily": "crispasr",
+          "label": "Vulkan",
+          "name": "Vulkan CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-vulkan.tar.gz",
+          "version": "v0.7.0",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        }
+      ],
+      "studio": {
+        "voice-cloning": {
+          "layout": "voice-cloning",
+          "parameters": [
+            "temperature",
+            "seed",
+            "max_codec_steps"
+          ]
+        }
+      }
+    },
+    {
+      "id": "qwen3-tts-1.7b-customvoice",
+      "localDir": "qwen3-tts-1.7b-customvoice",
+      "shortName": "Q3C",
+      "title": "Qwen3-TTS CustomVoice 1.7B",
+      "subtitle": "High-quality preset speaker TTS",
+      "description": "Qwen3-TTS model specialized for preset speakers and style instructions. Optimized for 24kHz high-fidelity output.",
+      "accent": "#4a90e2",
+      "modelId": "cstr/qwen3-tts-1.7b-customvoice-GGUF",
+      "capabilities": [
+        "tts"
+      ],
+      "supportsTts": true,
+      "supportsCloning": false,
+      "tags": [
+        "GGUF",
+        "High-Fidelity",
+        "CustomVoice",
+        "1.7B"
+      ],
+      "speakersMetadata": [
+        {
+          "name": "aiden",
+          "displayName": "Aiden (Default)",
+          "language": "English (M)"
+        },
+        {
+          "name": "dylan",
+          "displayName": "Dylan",
+          "language": "Beijing dialect (M, dialect_token=2074)"
+        },
+        {
+          "name": "eric",
+          "displayName": "Eric",
+          "language": "Sichuan dialect (M, dialect_token=2062)"
+        },
+        {
+          "name": "ono_anna",
+          "displayName": "Ono Anna",
+          "language": "English (F)"
+        },
+        {
+          "name": "ryan",
+          "displayName": "Ryan",
+          "language": "English (M)"
+        },
+        {
+          "name": "serena",
+          "displayName": "Serena",
+          "language": "English (F)"
+        },
+        {
+          "name": "sohee",
+          "displayName": "Sohee",
+          "language": "English (F)"
+        },
+        {
+          "name": "uncle_fu",
+          "displayName": "Uncle Fu",
+          "language": "English (M, older)"
+        },
+        {
+          "name": "vivian",
+          "displayName": "Vivian",
+          "language": "English (F)"
+        }
+      ],
+      "supportedLanguages": [
+        {
+          "text": "Chinese (zh)",
+          "value": "zh"
+        },
+        {
+          "text": "English (en)",
+          "value": "en"
+        },
+        {
+          "text": "Japanese (ja)",
+          "value": "ja"
+        },
+        {
+          "text": "Korean (ko)",
+          "value": "ko"
+        },
+        {
+          "text": "German (de)",
+          "value": "de"
+        },
+        {
+          "text": "French (fr)",
+          "value": "fr"
+        },
+        {
+          "text": "Russian (ru)",
+          "value": "ru"
+        },
+        {
+          "text": "Portuguese (pt)",
+          "value": "pt"
+        },
+        {
+          "text": "Spanish (es)",
+          "value": "es"
+        },
+        {
+          "text": "Italian (it)",
+          "value": "it"
+        }
+      ],
+      "parameterDefinitions": {
+        "temperature": {
+          "name": "Temperature",
+          "type": "float",
+          "min": 0.1,
+          "max": 2.0,
+          "default": 0.9,
+          "description": "Randomness of the generation."
+        },
+        "seed": {
+          "name": "Seed",
+          "type": "int",
+          "min": -1,
+          "max": 2147483647,
+          "default": -1,
+          "description": "Random seed for reproducibility. -1 for random."
+        },
+        "length_scale": {
+          "name": "Length Scale",
+          "type": "float",
+          "min": 0.25,
+          "max": 4.0,
+          "default": 1.0,
+          "description": "Duration multiplier. Values above 1.0 speak slower; below 1.0 speak faster."
+        },
+        "max_codec_steps": {
+          "name": "Max Codec Steps",
+          "type": "int",
+          "min": 16,
+          "max": 400,
+          "default": 100,
+          "description": "Maximum number of steps for the audio codec decoder. Equivalent to QWEN3_TTS_MAX_FRAMES.",
+          "advanced": true
+        }
+      },
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Qwen3-TTS Model",
+          "purpose": "Core 1.7B CustomVoice model",
+          "file": "qwen3-tts-12hz-1.7b-customvoice-q8_0.gguf",
+          "size": "1.8 GB",
+          "candidates": [
+            "qwen3-tts-12hz-1.7b-customvoice-q8_0.gguf",
+            "qwen3-tts-12hz-1.7b-customvoice.gguf"
+          ]
+        },
+        {
+          "role": "tokenizer",
+          "modelId": "cstr/qwen3-tts-tokenizer-12hz-GGUF",
+          "name": "Audio Codec",
+          "purpose": "12Hz Audio Tokenizer",
+          "file": "qwen3-tts-tokenizer-12hz.gguf",
+          "size": "700 MB",
+          "candidates": [
+            "qwen3-tts-tokenizer-12hz.gguf"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "crispasr-win-x86_64-cpu",
+          "engineFamily": "crispasr",
+          "label": "CPU",
+          "name": "CPU CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-cuda",
+          "engineFamily": "crispasr",
+          "label": "CUDA",
+          "name": "CUDA CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-cuda.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-vulkan",
+          "engineFamily": "crispasr",
+          "label": "Vulkan",
+          "name": "Vulkan CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-vulkan.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        }
+      ],
+      "studio": {
+        "tts": {
+          "layout": "tts",
+          "inputs": [
+            "text",
+            "language",
+            "voice",
+            "instruct"
+          ],
+          "parameters": [
+            "voice",
+            "temperature",
+            "seed",
+            "length_scale",
+            "max_codec_steps"
+          ]
+        }
+      }
+    },
+    {
+      "id": "qwen3-tts-1.7b-voicedesign",
+      "localDir": "qwen3-tts-1.7b-voicedesign",
+      "shortName": "Q3D",
+      "title": "Qwen3-TTS 1.7B VoiceDesign",
+      "subtitle": "Voice generation from descriptions",
+      "description": "Qwen3-TTS model specialized in zero-shot voice design from text instructions. Outputs high-fidelity 24kHz audio matching your style descriptions.",
+      "accent": "#ab47bc",
+      "modelId": "cstr/qwen3-tts-1.7b-voicedesign-GGUF",
+      "capabilities": [
+        "voice-design"
+      ],
+      "supportsTts": false,
+      "supportsCloning": false,
+      "tags": [
+        "GGUF",
+        "High-Fidelity",
+        "VoiceDesign",
+        "1.7B"
+      ],
+      "supportedLanguages": [
+        {
+          "text": "Chinese (zh)",
+          "value": "zh"
+        },
+        {
+          "text": "English (en)",
+          "value": "en"
+        },
+        {
+          "text": "Japanese (ja)",
+          "value": "ja"
+        },
+        {
+          "text": "Korean (ko)",
+          "value": "ko"
+        },
+        {
+          "text": "German (de)",
+          "value": "de"
+        },
+        {
+          "text": "French (fr)",
+          "value": "fr"
+        },
+        {
+          "text": "Russian (ru)",
+          "value": "ru"
+        },
+        {
+          "text": "Portuguese (pt)",
+          "value": "pt"
+        },
+        {
+          "text": "Spanish (es)",
+          "value": "es"
+        },
+        {
+          "text": "Italian (it)",
+          "value": "it"
+        }
+      ],
+      "parameterDefinitions": {
+        "temperature": {
+          "name": "Temperature",
+          "type": "float",
+          "min": 0.1,
+          "max": 2.0,
+          "default": 0.9,
+          "description": "Randomness of the generation."
+        },
+        "seed": {
+          "name": "Seed",
+          "type": "int",
+          "min": -1,
+          "max": 2147483647,
+          "default": -1,
+          "description": "Random seed for reproducibility. -1 for random."
+        },
+        "length_scale": {
+          "name": "Length Scale",
+          "type": "float",
+          "min": 0.25,
+          "max": 4.0,
+          "default": 1.0,
+          "description": "Duration multiplier. Values above 1.0 speak slower; below 1.0 speak faster."
+        },
+        "max_codec_steps": {
+          "name": "Max Codec Steps",
+          "type": "int",
+          "min": 16,
+          "max": 400,
+          "default": 100,
+          "description": "Maximum number of steps for the audio codec decoder. Equivalent to QWEN3_TTS_MAX_FRAMES.",
+          "advanced": true
+        }
+      },
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "VoiceDesign Model",
+          "purpose": "Core 1.7B VoiceDesign model",
+          "file": "qwen3-tts-12hz-1.7b-voicedesign-q8_0.gguf",
+          "size": "1.8 GB",
+          "candidates": [
+            "qwen3-tts-12hz-1.7b-voicedesign-q8_0.gguf"
+          ]
+        },
+        {
+          "role": "tokenizer",
+          "modelId": "cstr/qwen3-tts-tokenizer-12hz-GGUF",
+          "name": "Audio Codec",
+          "purpose": "12Hz Audio Tokenizer",
+          "file": "qwen3-tts-tokenizer-12hz.gguf",
+          "size": "700 MB",
+          "candidates": [
+            "qwen3-tts-tokenizer-12hz.gguf"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "crispasr-win-x86_64-cpu",
+          "engineFamily": "crispasr",
+          "label": "CPU",
+          "name": "CPU CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-cuda",
+          "engineFamily": "crispasr",
+          "label": "CUDA",
+          "name": "CUDA CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-cuda.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        },
+        {
+          "id": "crispasr-win-x86_64-vulkan",
+          "engineFamily": "crispasr",
+          "label": "Vulkan",
+          "name": "Vulkan CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-vulkan.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "backend": "qwen3-tts"
+        }
+      ],
+      "studio": {
+        "voice-design": {
+          "layout": "voice-design",
+          "inputs": [
+            "text",
+            "language",
+            "instruct"
+          ],
+          "requiredInputs": [
+            "text",
+            "instruct"
+          ],
+          "parameters": [
+            "temperature",
+            "seed",
+            "length_scale",
+            "max_codec_steps"
+          ]
+        }
+      }
+    },
+    {
+      "id": "vibevoice",
+      "localDir": "vibevoice",
+      "shortName": "VV",
+      "title": "VibeVoice",
+      "subtitle": "Realtime-oriented TTS & voice references",
+      "description": "A speed-focused local speech model family for fast iteration, compact tokenizer setup, and reference-based zero-shot voice workflows.",
+      "accent": "#00a6a6",
+      "modelId": "mudler/vibevoice.cpp-models",
+      "capabilities": [
+        "tts",
+        "voice-cloning"
+      ],
+      "supportsTts": true,
+      "supportsCloning": true,
+      "tags": [
+        "GGUF",
+        "Realtime Speed",
+        "Low RAM",
+        "Voice References"
+      ],
+      "strengths": [
+        "Fast iteration",
+        "Small required tokenizer",
+        "Good for local demos"
+      ],
+      "weaknesses": [
+        "Fewer generation controls",
+        "Quality depends heavily on reference audio"
+      ],
+      "supportedLanguages": [
+        {
+          "text": "English (en)",
+          "value": "en"
+        }
+      ],
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Base Voice Model",
+          "purpose": "Realtime TTS model",
+          "file": "vibevoice-realtime-0.5B-q8_0.gguf",
+          "size": "1.6 GB"
+        },
+        {
+          "role": "tokenizer",
+          "name": "Tokenizer",
+          "purpose": "Audio tokenization",
+          "file": "tokenizer.gguf",
+          "size": "5.9 MB"
+        },
+        {
+          "role": "reference",
+          "name": "Reference Voice",
+          "purpose": "Required voice preset for realtime cloning",
+          "file": "voice-en-Carter_man.gguf",
+          "size": "8.0 MB",
+          "candidates": [
+            "voice-en-Carter_man.gguf",
+            "voice-en-Emma.gguf"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "vibevoice.cpp-win-x86_64-cpu",
+          "engineFamily": "vibevoice.cpp",
+          "label": "CPU",
+          "name": "CPU VibeVoice (x64)",
+          "asset": "vibevoice-win-cpu.zip",
+          "library": "vibevoice.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/vibevoice.cpp/releases/download/"
+        },
+        {
+          "id": "vibevoice.cpp-win-x86_64-cuda-12",
+          "engineFamily": "vibevoice.cpp",
+          "label": "CUDA 12",
+          "name": "CUDA 12 VibeVoice (x64)",
+          "asset": "vibevoice-win-cuda-12.zip",
+          "library": "vibevoice.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/vibevoice.cpp/releases/download/"
+        },
+        {
+          "id": "vibevoice.cpp-win-x86_64-vulkan",
+          "engineFamily": "vibevoice.cpp",
+          "label": "Vulkan",
+          "name": "Vulkan VibeVoice (x64)",
+          "asset": "vibevoice-win-vulkan.zip",
+          "library": "vibevoice.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/vibevoice.cpp/releases/download/"
+        }
+      ],
+      "studio": {
+        "tts": {
+          "layout": "tts",
+          "action": "synthesize",
+          "inputs": [
+            "text"
+          ]
+        },
+        "voice-cloning": {
+          "layout": "voice-cloning"
+        }
+      }
+    },
+    {
+      "id": "vieneu-tts-v2-turbo",
+      "localDir": "vieneu-tts-v2-turbo",
+      "shortName": "VN",
+      "title": "VieNeu-TTS v2 Turbo",
+      "subtitle": "Bilingual Vietnamese-English TTS & cloning",
+      "description": "A lightweight, native C++ bilingual Vietnamese-English TTS and voice cloning engine optimized for CPU execution.",
+      "accent": "#ff9100",
+      "modelId": "pnnbao-ump/VieNeu-TTS-v2-Turbo-GGUF",
+      "capabilities": [
+        "tts",
+        "voice-cloning"
+      ],
+      "supportsTts": true,
+      "supportsCloning": true,
+      "tags": [
+        "GGUF",
+        "Bilingual",
+        "Zero-Shot Cloning",
+        "CPU Optimized"
+      ],
+      "parameterDefinitions": {
+        "voice": {
+          "name": "Voice",
+          "type": "choice",
+          "description": "Select a voice preset from voices.json."
+        },
+        "temperature": {
+          "name": "Temperature",
+          "type": "float",
+          "min": 0.1,
+          "max": 2.0,
+          "default": 0.4,
+          "description": "Randomness of generation. Recommended: 0.3 - 0.5."
+        },
+        "top_k": {
+          "name": "Top K",
+          "type": "int",
+          "min": 1,
+          "max": 100,
+          "default": 50,
+          "description": "Limit vocabulary selection to top K candidates."
+        },
+        "max_chars": {
+          "name": "Max Chars",
+          "type": "int",
+          "min": 50,
+          "max": 1000,
+          "default": 256,
+          "description": "Maximum characters per text segment.",
+          "advanced": true
+        },
+        "max_tokens": {
+          "name": "Max Tokens",
+          "type": "int",
+          "min": 128,
+          "max": 4096,
+          "default": 2048,
+          "description": "Maximum tokens generated per chunk.",
+          "advanced": true
+        },
+        "skip_normalize": {
+          "name": "Skip Normalization",
+          "type": "bool",
+          "default": false,
+          "description": "Bypass text normalization.",
+          "advanced": true
+        },
+        "skip_phonemize": {
+          "name": "Skip Phonemization",
+          "type": "bool",
+          "default": false,
+          "description": "Assume input text is already phonemes.",
+          "advanced": true
+        },
+        "apply_watermark": {
+          "name": "Apply Watermark",
+          "type": "bool",
+          "default": true,
+          "description": "Apply invisible watermark to output audio.",
+          "advanced": true
+        }
+      },
+      "strengths": [
+        "Offline execution",
+        "High-speed CPU synthesis",
+        "Seamless En-Vi code-switching",
+        "3-5s Zero-shot cloning"
+      ],
+      "weaknesses": [
+        "Slightly unstable on extremely short phrases under 5 words"
+      ],
+      "supportedLanguages": [
+        {
+          "text": "Vietnamese (vi)",
+          "value": "vi"
+        },
+        {
+          "text": "English (en)",
+          "value": "en"
+        }
+      ],
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Backbone GGUF Model",
+          "purpose": "Core language/speech representation model",
+          "file": "vieneu-tts-v2-turbo.gguf",
+          "size": "357 MB"
+        },
+        {
+          "role": "encoder",
+          "name": "Speaker Encoder ONNX",
+          "purpose": "Extracts 128-dimensional speaker embedding from reference audio",
+          "file": "vieneu_encoder.onnx",
+          "size": "16.7 MB",
+          "modelId": "pnnbao-ump/VieNeu-Codec"
+        },
+        {
+          "role": "decoder",
+          "name": "Neural Decoder ONNX",
+          "purpose": "Synthesizes PCM waveform from speech tokens and speaker embedding",
+          "file": "vieneu_decoder.onnx",
+          "size": "78.2 MB",
+          "modelId": "pnnbao-ump/VieNeu-Codec"
+        },
+        {
+          "role": "voices",
+          "name": "Preset Voices JSON",
+          "purpose": "Provides configuration for default speaker voices",
+          "file": "voices.json",
+          "size": "20 KB",
+          "modelId": "pnnbao-ump/VieNeu-TTS-v2-Turbo-GGUF",
+          "required": false,
+          "requiredFor": [
+            "tts"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "speech-lm-tts.cpp-win-x86_64-cpu",
+          "engineFamily": "speech-lm-tts.cpp",
+          "backend": "speech-lm-tts.cpp",
+          "pipelineProfile": "vieneu-turbo",
+          "label": "CPU",
+          "name": "CPU speech-lm-tts.cpp (x64)",
+          "asset": "speech-lm-tts-win-cpu.zip",
+          "library": "speechlm-tts.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/speech-lm-tts.cpp/releases/download/"
+        }
+      ],
+      "studio": {
+        "tts": {
+          "layout": "tts",
+          "action": "synthesize",
+          "inputs": [
+            "text"
+          ],
+          "parameters": [
+            "voice",
+            "temperature",
+            "top_k",
+            "max_chars",
+            "max_tokens",
+            "skip_normalize",
+            "skip_phonemize",
+            "apply_watermark"
+          ]
+        },
+        "voice-cloning": {
+          "layout": "voice-cloning",
+          "action": "clone",
+          "inputs": [
+            "text",
+            "ref_audio"
+          ],
+          "parameters": [
+            "temperature",
+            "top_k",
+            "max_chars",
+            "max_tokens",
+            "skip_normalize",
+            "skip_phonemize",
+            "apply_watermark"
+          ]
+        }
+      }
+    },
+    {
+      "id": "omnivoice",
+      "localDir": "omnivoice",
+      "shortName": "OV",
+      "title": "OmniVoice",
+      "subtitle": "High quality multilingual TTS & voice cloning",
+      "description": "A quality-first local speech model family for multilingual text to speech, prompt conditioning, and zero-shot voice cloning with reference audio.",
+      "accent": "#7c4dff",
+      "modelId": "Serveurperso/OmniVoice-GGUF",
+      "capabilities": [
+        "tts",
+        "voice-cloning",
+        "voice-design"
+      ],
+      "supportsTts": true,
+      "supportsCloning": true,
+      "tags": [
+        "GGUF",
+        "High Quality",
+        "Multilingual",
+        "Zero-Shot Cloning"
+      ],
+      "parameterDefinitions": {
+        "mg_num_step": {
+          "name": "Inference Steps",
+          "type": "int",
+          "min": 10,
+          "max": 100,
+          "default": 32,
+          "description": "Number of iterative decoding steps."
+        },
+        "mg_guidance_scale": {
+          "name": "CFG Guidance",
+          "type": "float",
+          "min": 1.0,
+          "max": 5.0,
+          "default": 2.0,
+          "description": "Controls style adherence."
+        },
+        "mg_t_shift": {
+          "name": "T Shift",
+          "type": "float",
+          "min": 0.0,
+          "max": 2.0,
+          "default": 0.1,
+          "description": "Shifts the masked generation schedule.",
+          "advanced": true
+        },
+        "mg_layer_penalty_factor": {
+          "name": "Layer Penalty",
+          "type": "float",
+          "min": 0.0,
+          "max": 10.0,
+          "default": 5.0,
+          "description": "Adjusts layer penalty during masked generation.",
+          "advanced": true
+        },
+        "mg_position_temperature": {
+          "name": "Position Temperature",
+          "type": "float",
+          "min": 0.0,
+          "max": 10.0,
+          "default": 5.0,
+          "description": "Controls position sampling temperature.",
+          "advanced": true
+        },
+        "mg_class_temperature": {
+          "name": "Class Temperature",
+          "type": "float",
+          "min": 0.0,
+          "max": 10.0,
+          "default": 0.0,
+          "description": "Controls class sampling temperature.",
+          "advanced": true
+        },
+        "mg_seed": {
+          "name": "Seed",
+          "type": "int",
+          "min": -1,
+          "max": 2147483647,
+          "default": 42,
+          "description": "Random seed for generation."
+        },
+        "chunk_duration_sec": {
+          "name": "Chunk Duration",
+          "type": "float",
+          "min": 0.0,
+          "max": 30.0,
+          "default": 15.0,
+          "description": "Target chunk duration in seconds for long-form generation. 0 disables chunking.",
+          "advanced": true
+        },
+        "chunk_threshold_sec": {
+          "name": "Chunk Threshold",
+          "type": "float",
+          "min": 0.0,
+          "max": 60.0,
+          "default": 30.0,
+          "description": "Activate chunking above this estimated duration.",
+          "advanced": true
+        },
+        "duration_sec": {
+          "name": "Duration",
+          "type": "float",
+          "min": 0.0,
+          "max": 180,
+          "default": 0.0,
+          "description": "Force output duration in seconds. 0 uses runtime estimate."
+        },
+        "denoise": {
+          "name": "Denoise",
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.0,
+          "description": "Reference audio denoise strength."
+        },
+        "preprocess_prompt": {
+          "name": "Preprocess Prompt",
+          "type": "bool",
+          "default": true,
+          "description": "Clean and normalize the input text prompt."
+        }
+      },
+      "strengths": [
+        "Expressive output",
+        "Good prompt control",
+        "Flexible quantized models"
+      ],
+      "weaknesses": [
+        "Needs base and tokenizer files",
+        "Slower than realtime on CPU"
+      ],
+      "supportedLanguageSetId": "omnivoice-v1",
+      "supportedLanguageCount": 646,
+      "featuredLanguages": [
+        {
+          "text": "English (en)",
+          "value": "en"
+        },
+        {
+          "text": "Chinese (zh)",
+          "value": "zh"
+        },
+        {
+          "text": "Japanese (ja)",
+          "value": "ja"
+        },
+        {
+          "text": "Korean (ko)",
+          "value": "ko"
+        },
+        {
+          "text": "French (fr)",
+          "value": "fr"
+        },
+        {
+          "text": "Spanish (es)",
+          "value": "es"
+        },
+        {
+          "text": "German (de)",
+          "value": "de"
+        },
+        {
+          "text": "Vietnamese (vi)",
+          "value": "vi"
+        }
+      ],
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Base Voice Model",
+          "purpose": "Core language model",
+          "file": "omnivoice-base-Q8_0.gguf",
+          "size": "656 MB",
+          "candidates": [
+            "omnivoice-base-Q8_0.gguf",
+            "omnivoice-base-Q4_K_M.gguf",
+            "omnivoice-base-BF16.gguf",
+            "omnivoice-base-F32.gguf"
+          ]
+        },
+        {
+          "role": "tokenizer",
+          "name": "Tokenizer / Audio Codec",
+          "purpose": "Audio tokenization",
+          "file": "omnivoice-tokenizer-F32.gguf",
+          "size": "734 MB",
+          "candidates": [
+            "omnivoice-tokenizer-F32.gguf",
+            "omnivoice-tokenizer-BF16.gguf",
+            "omnivoice-tokenizer-Q8_0.gguf",
+            "omnivoice-tokenizer-Q4_K_M.gguf"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "omnivoice.cpp-win-x86_64-cpu",
+          "engineFamily": "omnivoice.cpp",
+          "label": "CPU",
+          "name": "CPU Omnivoice (x64)",
+          "asset": "omnivoice-win-cpu.zip",
+          "library": "omnivoice.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/omnivoice.cpp/releases/download/"
+        },
+        {
+          "id": "omnivoice.cpp-win-x86_64-cuda-12",
+          "engineFamily": "omnivoice.cpp",
+          "label": "CUDA 12",
+          "name": "CUDA 12 Omnivoice (x64)",
+          "asset": "omnivoice-win-cuda-12.zip",
+          "library": "omnivoice.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/omnivoice.cpp/releases/download/"
+        },
+        {
+          "id": "omnivoice.cpp-win-x86_64-vulkan",
+          "engineFamily": "omnivoice.cpp",
+          "label": "Vulkan",
+          "name": "Vulkan Omnivoice (x64)",
+          "asset": "omnivoice-win-vulkan.zip",
+          "library": "omnivoice.dll",
+          "version": "v0.1.0",
+          "source": "https://github.com/dduongtrandai/omnivoice.cpp/releases/download/"
+        }
+      ],
+      "studio": {
+        "tts": {
+          "layout": "tts",
+          "action": "synthesize",
+          "inputs": [
+            "text",
+            "language"
+          ],
+          "parameters": [
+            "mg_num_step",
+            "mg_guidance_scale",
+            "duration_sec",
+            "mg_t_shift",
+            "mg_layer_penalty_factor",
+            "mg_position_temperature",
+            "mg_class_temperature",
+            "chunk_duration_sec",
+            "chunk_threshold_sec"
+          ],
+          "nonVerbalTags": [
+            {
+              "text": "[laughter]",
+              "value": "[laughter]",
+              "description": "tiếng cười."
+            },
+            {
+              "text": "[sigh]",
+              "value": "[sigh]",
+              "description": "tiếng thở dài."
+            },
+            {
+              "text": "[confirmation-en]",
+              "value": "[confirmation-en]",
+              "description": "âm xác nhận kiểu tiếng Anh."
+            },
+            {
+              "text": "[question-en]",
+              "value": "[question-en]",
+              "description": "âm hỏi kiểu tiếng Anh."
+            },
+            {
+              "text": "[question-ah]",
+              "value": "[question-ah]",
+              "description": "âm hỏi \"ah\"."
+            },
+            {
+              "text": "[question-oh]",
+              "value": "[question-oh]",
+              "description": "âm hỏi \"oh\"."
+            },
+            {
+              "text": "[question-ei]",
+              "value": "[question-ei]",
+              "description": "âm hỏi \"ei\"."
+            },
+            {
+              "text": "[question-yi]",
+              "value": "[question-yi]",
+              "description": "âm hỏi \"yi\"."
+            },
+            {
+              "text": "[surprise-ah]",
+              "value": "[surprise-ah]",
+              "description": "âm ngạc nhiên \"ah\"."
+            },
+            {
+              "text": "[surprise-oh]",
+              "value": "[surprise-oh]",
+              "description": "âm ngạc nhiên \"oh\"."
+            },
+            {
+              "text": "[surprise-wa]",
+              "value": "[surprise-wa]",
+              "description": "âm ngạc nhiên \"wa\"."
+            },
+            {
+              "text": "[surprise-yo]",
+              "value": "[surprise-yo]",
+              "description": "âm ngạc nhiên \"yo\"."
+            },
+            {
+              "text": "[dissatisfaction-hnn]",
+              "value": "[dissatisfaction-hnn]",
+              "description": "âm thể hiện không hài lòng / bực bội."
+            }
+          ]
+        },
+        "voice-cloning": {
+          "layout": "voice-cloning",
+          "action": "clone",
+          "inputs": [
+            "text",
+            "language",
+            "ref_audio",
+            "ref_text"
+          ],
+          "parameters": [
+            "mg_num_step",
+            "mg_guidance_scale",
+            "duration_sec",
+            "mg_t_shift",
+            "mg_layer_penalty_factor",
+            "mg_position_temperature",
+            "mg_class_temperature",
+            "chunk_duration_sec",
+            "chunk_threshold_sec"
+          ],
+          "nonVerbalTags": [
+            {
+              "text": "[laughter]",
+              "value": "[laughter]",
+              "description": "tiếng cười."
+            },
+            {
+              "text": "[sigh]",
+              "value": "[sigh]",
+              "description": "tiếng thở dài."
+            },
+            {
+              "text": "[confirmation-en]",
+              "value": "[confirmation-en]",
+              "description": "âm xác nhận kiểu tiếng Anh."
+            },
+            {
+              "text": "[question-en]",
+              "value": "[question-en]",
+              "description": "âm hỏi kiểu tiếng Anh."
+            },
+            {
+              "text": "[question-ah]",
+              "value": "[question-ah]",
+              "description": "âm hỏi \"ah\"."
+            },
+            {
+              "text": "[question-oh]",
+              "value": "[question-oh]",
+              "description": "âm hỏi \"oh\"."
+            },
+            {
+              "text": "[question-ei]",
+              "value": "[question-ei]",
+              "description": "âm hỏi \"ei\"."
+            },
+            {
+              "text": "[question-yi]",
+              "value": "[question-yi]",
+              "description": "âm hỏi \"yi\"."
+            },
+            {
+              "text": "[surprise-ah]",
+              "value": "[surprise-ah]",
+              "description": "âm ngạc nhiên \"ah\"."
+            },
+            {
+              "text": "[surprise-oh]",
+              "value": "[surprise-oh]",
+              "description": "âm ngạc nhiên \"oh\"."
+            },
+            {
+              "text": "[surprise-wa]",
+              "value": "[surprise-wa]",
+              "description": "âm ngạc nhiên \"wa\"."
+            },
+            {
+              "text": "[surprise-yo]",
+              "value": "[surprise-yo]",
+              "description": "âm ngạc nhiên \"yo\"."
+            },
+            {
+              "text": "[dissatisfaction-hnn]",
+              "value": "[dissatisfaction-hnn]",
+              "description": "âm thể hiện không hài lòng / bực bội."
+            }
+          ]
+        },
+        "voice-design": {
+          "layout": "voice-design",
+          "action": "synthesize",
+          "inputs": [
+            "text",
+            "language",
+            "instruct"
+          ],
+          "requiredInputs": [
+            "text",
+            "instruct"
+          ],
+          "parameters": [
+            "mg_num_step",
+            "mg_guidance_scale",
+            "duration_sec",
+            "mg_t_shift",
+            "mg_layer_penalty_factor",
+            "mg_position_temperature",
+            "mg_class_temperature",
+            "chunk_duration_sec",
+            "chunk_threshold_sec"
+          ],
+          "nonVerbalTags": [
+            {
+              "text": "[laughter]",
+              "value": "[laughter]",
+              "description": "tiếng cười."
+            },
+            {
+              "text": "[sigh]",
+              "value": "[sigh]",
+              "description": "tiếng thở dài."
+            },
+            {
+              "text": "[confirmation-en]",
+              "value": "[confirmation-en]",
+              "description": "âm xác nhận kiểu tiếng Anh."
+            },
+            {
+              "text": "[question-en]",
+              "value": "[question-en]",
+              "description": "âm hỏi kiểu tiếng Anh."
+            },
+            {
+              "text": "[question-ah]",
+              "value": "[question-ah]",
+              "description": "âm hỏi \"ah\"."
+            },
+            {
+              "text": "[question-oh]",
+              "value": "[question-oh]",
+              "description": "âm hỏi \"oh\"."
+            },
+            {
+              "text": "[question-ei]",
+              "value": "[question-ei]",
+              "description": "âm hỏi \"ei\"."
+            },
+            {
+              "text": "[question-yi]",
+              "value": "[question-yi]",
+              "description": "âm hỏi \"yi\"."
+            },
+            {
+              "text": "[surprise-ah]",
+              "value": "[surprise-ah]",
+              "description": "âm ngạc nhiên \"ah\"."
+            },
+            {
+              "text": "[surprise-oh]",
+              "value": "[surprise-oh]",
+              "description": "âm ngạc nhiên \"oh\"."
+            },
+            {
+              "text": "[surprise-wa]",
+              "value": "[surprise-wa]",
+              "description": "âm ngạc nhiên \"wa\"."
+            },
+            {
+              "text": "[surprise-yo]",
+              "value": "[surprise-yo]",
+              "description": "âm ngạc nhiên \"yo\"."
+            },
+            {
+              "text": "[dissatisfaction-hnn]",
+              "value": "[dissatisfaction-hnn]",
+              "description": "âm thể hiện không hài lòng / bực bội."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "kokoro",
+      "localDir": "kokoro",
+      "shortName": "KO",
+      "title": "Kokoro",
+      "subtitle": "Small multilingual preset-voice TTS",
+      "description": "A compact StyleTTS2-derived text-to-speech family driven through CrispASR v0.6.8 runtime DLLs. It uses one Kokoro backbone GGUF plus a per-voice GGUF pack.",
+      "accent": "#4f9d69",
+      "capabilities": [
+        "tts"
+      ],
+      "supportsTts": true,
+      "supportsCloning": false,
+      "tags": [
+        "GGUF",
+        "Small",
+        "Fast",
+        "Multilingual",
+        "Preset Voices"
+      ],
+      "supportedLanguages": [
+        {
+          "text": "English (en)",
+          "value": "en"
+        },
+        {
+          "text": "Spanish (es)",
+          "value": "es"
+        },
+        {
+          "text": "French (fr)",
+          "value": "fr"
+        },
+        {
+          "text": "Hindi (hi)",
+          "value": "hi"
+        },
+        {
+          "text": "Italian (it)",
+          "value": "it"
+        },
+        {
+          "text": "Japanese (ja)",
+          "value": "ja"
+        },
+        {
+          "text": "Portuguese (pt)",
+          "value": "pt"
+        },
+        {
+          "text": "Chinese (zh)",
+          "value": "zh"
+        },
+        {
+          "text": "German (de)",
+          "value": "de"
+        }
+      ],
+      "strengths": [
+        "Fast CPU inference",
+        "Small model footprint",
+        "Multilingual phonemizer routing"
+      ],
+      "weaknesses": [
+        "Uses preset voice packs only",
+        "Needs espeak-ng availability from the CrispASR runtime environment"
+      ],
+      "runtimes": [
+        {
+          "id": "crispasr-win-x86_64-cpu",
+          "engineFamily": "crispasr",
+          "label": "CPU",
+          "name": "CPU CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "dependencyDownloads": [
+            {
+              "dependency": "espeak-ng",
+              "filename": "espeak-ng.msi",
+              "url": "https://github.com/espeak-ng/espeak-ng/releases/download/1.52.0/espeak-ng.msi"
+            }
+          ],
+          "backend": "kokoro",
+          "modelVersion": "Kokoro-82M GGUF"
+        },
+        {
+          "id": "crispasr-win-x86_64-cuda",
+          "engineFamily": "crispasr",
+          "label": "CUDA",
+          "name": "CUDA CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-cuda.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "dependencyDownloads": [
+            {
+              "dependency": "espeak-ng",
+              "filename": "espeak-ng.msi",
+              "url": "https://github.com/espeak-ng/espeak-ng/releases/download/1.52.0/espeak-ng.msi"
+            }
+          ],
+          "backend": "kokoro",
+          "modelVersion": "Kokoro-82M GGUF"
+        },
+        {
+          "id": "crispasr-win-x86_64-vulkan",
+          "engineFamily": "crispasr",
+          "label": "Vulkan",
+          "name": "Vulkan CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-vulkan.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "dependencyDownloads": [
+            {
+              "dependency": "espeak-ng",
+              "filename": "espeak-ng.msi",
+              "url": "https://github.com/espeak-ng/espeak-ng/releases/download/1.52.0/espeak-ng.msi"
+            }
+          ],
+          "backend": "kokoro",
+          "modelVersion": "Kokoro-82M GGUF"
+        },
+        {
+          "id": "crispasr-win-x86_64-cpu-legacy",
+          "engineFamily": "crispasr",
+          "label": "CPU Legacy",
+          "name": "Legacy CPU CrispASR (x64)",
+          "asset": "libcrispasr-windows-x86_64-cpu-legacy.tar.gz",
+          "version": "v0.6.8",
+          "source": "https://github.com/CrispStrobe/CrispASR/releases/download/",
+          "library": "bin/crispasr.dll",
+          "dependencyDownloads": [
+            {
+              "dependency": "espeak-ng",
+              "filename": "espeak-ng.msi",
+              "url": "https://github.com/espeak-ng/espeak-ng/releases/download/1.52.0/espeak-ng.msi"
+            }
+          ],
+          "backend": "kokoro",
+          "modelVersion": "Kokoro-82M GGUF"
+        }
+      ],
+      "studio": {
+        "tts": {
+          "layout": "tts",
+          "action": "synthesize",
+          "inputs": [
+            "text",
+            "language"
+          ]
+        }
+      },
+      "modelId": "cstr/kokoro-82m-GGUF",
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Kokoro Backbone",
+          "purpose": "Core StyleTTS2 / iSTFTNet model",
+          "file": "kokoro-82m-f16.gguf",
+          "candidates": [
+            "kokoro-82m-f16.gguf",
+            "kokoro-de-hui-base-f16.gguf"
+          ],
+          "modelKey": "cstr/kokoro-82m-gguf",
+          "size": "330 MB",
+          "variants": [
+            {
+              "name": "kokoro-82m-f16.gguf",
+              "size": "330 MB"
+            },
+            {
+              "name": "kokoro-de-hui-base-f16.gguf"
+            }
+          ],
+          "sources": [
+            {
+              "type": "huggingface",
+              "user": "cstr",
+              "repo": "kokoro-82m-GGUF",
+              "files": [
+                {
+                  "name": "kokoro-82m-f16.gguf",
+                  "size": "330 MB"
+                },
+                {
+                  "name": "kokoro-de-hui-base-f16.gguf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "role": "tokenizer",
+          "name": "Voice Pack",
+          "purpose": "Preset speaker style vectors",
+          "file": "kokoro-voice-af_heart.gguf",
+          "candidates": [
+            "kokoro-voice-af_heart.gguf",
+            "kokoro-voice-ff_siwis.gguf",
+            "kokoro-voice-df_victoria.gguf",
+            "kokoro-voice-df_eva.gguf",
+            "kokoro-voice-dm_martin.gguf",
+            "kokoro-voice-dm_bernd.gguf"
+          ],
+          "modelKey": "cstr/kokoro-voices-gguf",
+          "modelId": "cstr/kokoro-voices-GGUF",
+          "size": "0.6 MB",
+          "variants": [
+            {
+              "name": "kokoro-voice-af_heart.gguf",
+              "size": "0.6 MB"
+            },
+            {
+              "name": "kokoro-voice-ff_siwis.gguf"
+            },
+            {
+              "name": "kokoro-voice-df_victoria.gguf"
+            },
+            {
+              "name": "kokoro-voice-df_eva.gguf"
+            },
+            {
+              "name": "kokoro-voice-dm_martin.gguf"
+            },
+            {
+              "name": "kokoro-voice-dm_bernd.gguf"
+            }
+          ],
+          "sources": [
+            {
+              "type": "huggingface",
+              "user": "cstr",
+              "repo": "kokoro-voices-GGUF",
+              "files": [
+                {
+                  "name": "kokoro-voice-af_heart.gguf",
+                  "size": "0.6 MB"
+                },
+                {
+                  "name": "kokoro-voice-ff_siwis.gguf"
+                },
+                {
+                  "name": "kokoro-voice-df_victoria.gguf"
+                },
+                {
+                  "name": "kokoro-voice-df_eva.gguf"
+                },
+                {
+                  "name": "kokoro-voice-dm_martin.gguf"
+                },
+                {
+                  "name": "kokoro-voice-dm_bernd.gguf"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "metadataOverrides": {
+        "domain": "tts",
+        "architectures": [
+          "styletts2"
+        ],
+        "compatibilityTypes": [
+          "gguf"
+        ],
+        "paramsStrings": [
+          "82M"
+        ],
+        "capabilities": [
+          "tts"
+        ],
+        "vision": false
+      },
+      "modelYaml": {
+        "model": "cstr/kokoro-82m-GGUF",
+        "base": [
+          {
+            "key": "cstr/kokoro-82m-gguf",
+            "role": "model",
+            "name": "Kokoro Backbone",
+            "purpose": "Core StyleTTS2 / iSTFTNet model",
+            "defaultFile": "kokoro-82m-f16.gguf",
+            "sources": [
+              {
+                "type": "huggingface",
+                "user": "cstr",
+                "repo": "kokoro-82m-GGUF",
+                "files": [
+                  {
+                    "name": "kokoro-82m-f16.gguf",
+                    "size": "330 MB"
+                  },
+                  {
+                    "name": "kokoro-de-hui-base-f16.gguf"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "cstr/kokoro-voices-gguf",
+            "role": "tokenizer",
+            "name": "Voice Pack",
+            "purpose": "Preset speaker style vectors",
+            "defaultFile": "kokoro-voice-af_heart.gguf",
+            "sources": [
+              {
+                "type": "huggingface",
+                "user": "cstr",
+                "repo": "kokoro-voices-GGUF",
+                "files": [
+                  {
+                    "name": "kokoro-voice-af_heart.gguf",
+                    "size": "0.6 MB"
+                  },
+                  {
+                    "name": "kokoro-voice-ff_siwis.gguf"
+                  },
+                  {
+                    "name": "kokoro-voice-df_victoria.gguf"
+                  },
+                  {
+                    "name": "kokoro-voice-df_eva.gguf"
+                  },
+                  {
+                    "name": "kokoro-voice-dm_martin.gguf"
+                  },
+                  {
+                    "name": "kokoro-voice-dm_bernd.gguf"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "metadataOverrides": {
+          "domain": "tts",
+          "architectures": [
+            "styletts2"
+          ],
+          "compatibilityTypes": [
+            "gguf"
+          ],
+          "paramsStrings": [
+            "82M"
+          ],
+          "capabilities": [
+            "tts"
+          ],
+          "vision": false
+        },
+        "config": {
+          "operation": {
+            "fields": [
+              {
+                "key": "tts.language",
+                "value": "en"
+              }
+            ]
+          }
+        },
+        "customFields": [
+          {
+            "key": "voicePack",
+            "displayName": "Voice Pack",
+            "description": "Selects the installed Kokoro voice GGUF used for synthesis.",
+            "type": "string",
+            "defaultValue": "kokoro-voice-af_heart.gguf"
+          }
+        ]
+      }
+    }
+  ],
+  "sttFamilies": [
+    {
+      "id": "whisper.cpp",
+      "localDir": "whisper",
+      "shortName": "WSP",
+      "title": "Whisper.cpp",
+      "subtitle": "Offline multilingual speech recognition and translation",
+      "description": "Native C/C++ inference for OpenAI Whisper models converted to the custom ggml format. Supports multilingual transcription, automatic language detection and translation to English, with optional timestamp, TinyDiarize and Silero VAD workflows in upstream whisper.cpp.",
+      "accent": "#27a99a",
+      "modelId": "ggerganov/whisper.cpp",
+      "capabilities": [
+        "stt"
+      ],
+      "supportsStt": true,
+      "tags": [
+        "ggml",
+        "Offline",
+        "Multilingual",
+        "Translation",
+        "Timestamps",
+        "VAD"
+      ],
+      "strengths": [
+        "Runs speech recognition locally with CPU and GPU runtime options",
+        "Supports 100 languages, automatic language detection and translation to English",
+        "Upstream supports token timestamps, TinyDiarize speaker-turn detection and Silero VAD"
+      ],
+      "weaknesses": [
+        "Large models require substantial download size and memory",
+        "TinyDiarize requires a dedicated model ending in -tdrz",
+        "LA Studio currently exposes only language, threads and translation controls from the upstream setting set"
+      ],
+      "supportedLanguageSetId": "whisper-v1",
+      "supportedLanguageCount": 100,
+      "featuredLanguages": [
+        {
+          "text": "English",
+          "value": "en"
+        },
+        {
+          "text": "Vietnamese",
+          "value": "vi"
+        },
+        {
+          "text": "Chinese",
+          "value": "zh"
+        },
+        {
+          "text": "Japanese",
+          "value": "ja"
+        },
+        {
+          "text": "Korean",
+          "value": "ko"
+        },
+        {
+          "text": "French",
+          "value": "fr"
+        },
+        {
+          "text": "Spanish",
+          "value": "es"
+        },
+        {
+          "text": "German",
+          "value": "de"
+        },
+        {
+          "text": "Portuguese",
+          "value": "pt"
+        },
+        {
+          "text": "Russian",
+          "value": "ru"
+        }
+      ],
+      "parameterDefinitions": {
+        "threads": {
+          "name": "Threads",
+          "type": "int",
+          "min": 1,
+          "max": 64,
+          "default": 4,
+          "description": "Number of computation threads. Upstream defaults to the smaller of 4 and the available hardware thread count."
+        },
+        "translate": {
+          "name": "Translate to English",
+          "type": "bool",
+          "default": false,
+          "description": "Translate recognized speech into English instead of transcribing in its original language."
+        },
+        "language": {
+          "name": "Language",
+          "type": "string",
+          "default": "en",
+          "description": "Language code used for transcription. Upstream defaults to English; LA Studio accepts auto to enable automatic detection."
+        },
+        "detect_language": {
+          "name": "Detect Language",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Automatically identify the spoken language before decoding."
+        },
+        "strategy": {
+          "name": "Sampling Strategy",
+          "type": "choice",
+          "default": "greedy",
+          "advanced": true,
+          "description": "Decoding strategy passed to whisper_full_default_params.",
+          "options": [
+            {
+              "text": "Greedy",
+              "value": "greedy"
+            },
+            {
+              "text": "Beam Search",
+              "value": "beam_search"
+            }
+          ]
+        },
+        "offset_ms": {
+          "name": "Offset (ms)",
+          "type": "int",
+          "min": 0,
+          "default": 0,
+          "advanced": true,
+          "description": "Start processing at this audio offset."
+        },
+        "duration_ms": {
+          "name": "Duration (ms)",
+          "type": "int",
+          "min": 0,
+          "default": 0,
+          "advanced": true,
+          "description": "Limit processing duration; 0 processes all remaining audio."
+        },
+        "n_max_text_ctx": {
+          "name": "Maximum Text Context",
+          "type": "int",
+          "min": 0,
+          "default": 16384,
+          "advanced": true,
+          "description": "Maximum number of previous text tokens available as decoder context."
+        },
+        "no_context": {
+          "name": "Disable Previous Text Context",
+          "type": "bool",
+          "default": true,
+          "advanced": true,
+          "description": "Do not feed previously decoded text as prompt to the next audio segment."
+        },
+        "no_timestamps": {
+          "name": "Disable Timestamps",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Suppress timestamp-token decoding."
+        },
+        "single_segment": {
+          "name": "Single Segment",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Force the decoded result into one segment."
+        },
+        "print_special": {
+          "name": "Print Special Tokens",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Include special tokens in printed output."
+        },
+        "print_progress": {
+          "name": "Print Progress",
+          "type": "bool",
+          "default": true,
+          "advanced": true,
+          "description": "Print inference progress updates when using upstream output callbacks or examples."
+        },
+        "print_realtime": {
+          "name": "Print Realtime",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Print results incrementally during transcription."
+        },
+        "print_timestamps": {
+          "name": "Print Timestamps",
+          "type": "bool",
+          "default": true,
+          "advanced": true,
+          "description": "Print timestamps with generated segments."
+        },
+        "token_timestamps": {
+          "name": "Token Timestamps",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Compute token-level timestamps during decoding."
+        },
+        "thold_pt": {
+          "name": "Token Timestamp Probability Threshold",
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.01,
+          "advanced": true,
+          "description": "Probability threshold for token timestamp processing."
+        },
+        "thold_ptsum": {
+          "name": "Token Timestamp Sum Threshold",
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.01,
+          "advanced": true,
+          "description": "Probability-sum threshold for token timestamp processing."
+        },
+        "max_len": {
+          "name": "Maximum Segment Length",
+          "type": "int",
+          "min": 0,
+          "default": 0,
+          "advanced": true,
+          "description": "Maximum segment length in characters; 0 leaves segments unconstrained."
+        },
+        "split_on_word": {
+          "name": "Split On Word",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "When segment length is constrained, split only on word boundaries."
+        },
+        "max_tokens": {
+          "name": "Maximum Tokens Per Segment",
+          "type": "int",
+          "min": 0,
+          "default": 0,
+          "advanced": true,
+          "description": "Maximum tokens in a segment; 0 disables this constraint."
+        },
+        "audio_ctx": {
+          "name": "Audio Context",
+          "type": "int",
+          "min": 0,
+          "default": 0,
+          "advanced": true,
+          "description": "Override the model audio context length; 0 uses the model default."
+        },
+        "debug_mode": {
+          "name": "Debug Mode",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Enable upstream decoder debugging output."
+        },
+        "tdrz_enable": {
+          "name": "TinyDiarize Speaker Turns",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Enable speaker-turn detection. Requires a dedicated TinyDiarize model such as ggml-small.en-tdrz.bin."
+        },
+        "initial_prompt": {
+          "name": "Initial Prompt",
+          "type": "string",
+          "default": "",
+          "advanced": true,
+          "description": "Text prompt used to guide initial transcription context."
+        },
+        "carry_initial_prompt": {
+          "name": "Carry Initial Prompt",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Apply the initial prompt to each internal decoding call."
+        },
+        "suppress_blank": {
+          "name": "Suppress Blank Tokens",
+          "type": "bool",
+          "default": true,
+          "advanced": true,
+          "description": "Suppress blank output tokens during decoding."
+        },
+        "suppress_nst": {
+          "name": "Suppress Non-Speech Tokens",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Suppress non-speech token classes."
+        },
+        "suppress_regex": {
+          "name": "Suppress Regex",
+          "type": "string",
+          "default": "",
+          "advanced": true,
+          "description": "Regular expression for suppressing matching tokens from the output."
+        },
+        "temperature": {
+          "name": "Temperature",
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.0,
+          "advanced": true,
+          "description": "Initial sampling temperature."
+        },
+        "max_initial_ts": {
+          "name": "Maximum Initial Timestamp",
+          "type": "float",
+          "min": 0.0,
+          "default": 1.0,
+          "advanced": true,
+          "description": "Maximum initial timestamp in seconds."
+        },
+        "length_penalty": {
+          "name": "Length Penalty",
+          "type": "float",
+          "default": -1.0,
+          "advanced": true,
+          "description": "Decoder length penalty; negative values keep the default behavior."
+        },
+        "temperature_inc": {
+          "name": "Temperature Increment",
+          "type": "float",
+          "min": 0.0,
+          "default": 0.2,
+          "advanced": true,
+          "description": "Temperature fallback increment when decoding fails quality thresholds."
+        },
+        "entropy_thold": {
+          "name": "Entropy Threshold",
+          "type": "float",
+          "default": 2.4,
+          "advanced": true,
+          "description": "Entropy threshold used for decoding fallback."
+        },
+        "logprob_thold": {
+          "name": "Log Probability Threshold",
+          "type": "float",
+          "default": -1.0,
+          "advanced": true,
+          "description": "Average log probability threshold used for decoding fallback."
+        },
+        "no_speech_thold": {
+          "name": "No Speech Threshold",
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.6,
+          "advanced": true,
+          "description": "Probability threshold for identifying no-speech segments."
+        },
+        "best_of": {
+          "name": "Greedy Best Of",
+          "type": "int",
+          "min": 1,
+          "default": 5,
+          "advanced": true,
+          "description": "Number of candidates considered by greedy decoding."
+        },
+        "beam_size": {
+          "name": "Beam Size",
+          "type": "int",
+          "min": 1,
+          "default": 5,
+          "advanced": true,
+          "description": "Number of beams used when the beam-search strategy is selected."
+        },
+        "beam_patience": {
+          "name": "Beam Search Patience",
+          "type": "float",
+          "default": -1.0,
+          "advanced": true,
+          "description": "Beam-search patience value; negative values retain upstream default behavior."
+        },
+        "grammar": {
+          "name": "Grammar",
+          "type": "string",
+          "default": "",
+          "advanced": true,
+          "description": "GBNF grammar text used to constrain decoder output."
+        },
+        "grammar_rule": {
+          "name": "Grammar Start Rule",
+          "type": "string",
+          "default": "",
+          "advanced": true,
+          "description": "Root rule name used when grammar constraints are supplied."
+        },
+        "grammar_penalty": {
+          "name": "Grammar Penalty",
+          "type": "float",
+          "default": 100.0,
+          "advanced": true,
+          "description": "Penalty applied to tokens rejected by the grammar."
+        },
+        "vad": {
+          "name": "Voice Activity Detection",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Enable Silero VAD-assisted filtering. Requires an optional VAD model such as ggml-silero-v6.2.0.bin."
+        },
+        "vad_model_path": {
+          "name": "VAD Model Path",
+          "type": "string",
+          "default": "",
+          "advanced": true,
+          "description": "Filesystem path of the optional Silero VAD model, for example ggml-silero-v6.2.0.bin."
+        },
+        "vad_threshold": {
+          "name": "VAD Threshold",
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "default": 0.5,
+          "advanced": true,
+          "description": "Speech probability threshold used by Silero VAD."
+        },
+        "vad_min_speech_duration_ms": {
+          "name": "VAD Minimum Speech Duration (ms)",
+          "type": "int",
+          "min": 0,
+          "default": 250,
+          "advanced": true,
+          "description": "Minimum duration for a detected speech region."
+        },
+        "vad_min_silence_duration_ms": {
+          "name": "VAD Minimum Silence Duration (ms)",
+          "type": "int",
+          "min": 0,
+          "default": 100,
+          "advanced": true,
+          "description": "Minimum silence duration required to split speech regions."
+        },
+        "vad_max_speech_duration_s": {
+          "name": "VAD Maximum Speech Duration (s)",
+          "type": "float",
+          "min": 0.0,
+          "default": 3.4028235e+38,
+          "advanced": true,
+          "description": "Maximum speech segment duration. Upstream defaults to FLT_MAX, effectively disabling forced splitting."
+        },
+        "vad_speech_pad_ms": {
+          "name": "VAD Speech Padding (ms)",
+          "type": "int",
+          "min": 0,
+          "default": 30,
+          "advanced": true,
+          "description": "Padding added before and after detected speech segments."
+        },
+        "vad_samples_overlap": {
+          "name": "VAD Samples Overlap (s)",
+          "type": "float",
+          "min": 0.0,
+          "default": 0.1,
+          "advanced": true,
+          "description": "Audio overlap in seconds used while applying VAD-filtered transcription."
+        },
+        "use_gpu": {
+          "name": "Use GPU",
+          "type": "bool",
+          "default": true,
+          "advanced": true,
+          "description": "Use GPU acceleration for the transcription model when the selected runtime supports it. Upstream currently forces VAD inference to CPU."
+        },
+        "gpu_device": {
+          "name": "GPU Device",
+          "type": "int",
+          "min": 0,
+          "default": 0,
+          "advanced": true,
+          "description": "GPU device index used for model execution."
+        },
+        "flash_attn": {
+          "name": "Flash Attention",
+          "type": "bool",
+          "default": true,
+          "advanced": true,
+          "description": "Enable flash attention in the model context. Upstream disables DTW token timestamps while flash attention is active."
+        },
+        "dtw_token_timestamps": {
+          "name": "DTW Token Timestamps",
+          "type": "bool",
+          "default": false,
+          "advanced": true,
+          "description": "Enable DTW alignment-head token timestamps. This requires flash attention to be disabled."
+        },
+        "dtw_n_top": {
+          "name": "DTW Top Text Layers",
+          "type": "int",
+          "default": -1,
+          "advanced": true,
+          "description": "Number of top text layers used by the DTW N-top-most alignment-head mode."
+        },
+        "dtw_mem_size": {
+          "name": "DTW Memory Size (bytes)",
+          "type": "int",
+          "min": 0,
+          "default": 134217728,
+          "advanced": true,
+          "description": "Maximum memory allocated for DTW timestamp processing."
+        },
+        "dtw_preset": {
+          "name": "DTW Alignment Preset",
+          "type": "choice",
+          "default": "none",
+          "advanced": true,
+          "description": "Model-specific alignment-head preset used for DTW token timestamps.",
+          "options": [
+            {
+              "text": "None",
+              "value": "none"
+            },
+            {
+              "text": "Tiny English",
+              "value": "tiny.en"
+            },
+            {
+              "text": "Tiny",
+              "value": "tiny"
+            },
+            {
+              "text": "Base English",
+              "value": "base.en"
+            },
+            {
+              "text": "Base",
+              "value": "base"
+            },
+            {
+              "text": "Small English",
+              "value": "small.en"
+            },
+            {
+              "text": "Small",
+              "value": "small"
+            },
+            {
+              "text": "Medium English",
+              "value": "medium.en"
+            },
+            {
+              "text": "Medium",
+              "value": "medium"
+            },
+            {
+              "text": "Large v1",
+              "value": "large.v1"
+            },
+            {
+              "text": "Large v2",
+              "value": "large.v2"
+            },
+            {
+              "text": "Large v3",
+              "value": "large.v3"
+            },
+            {
+              "text": "Large v3 Turbo",
+              "value": "large.v3.turbo"
+            }
+          ]
+        }
+      },
+      "requiredFiles": [
+        {
+          "role": "model",
+          "name": "Whisper Model",
+          "purpose": "Core transcription model in whisper.cpp custom ggml format",
+          "file": "ggml-base.bin",
+          "size": "142 MiB",
+          "candidates": [
+            "ggml-tiny.bin",
+            "ggml-tiny.en.bin",
+            "ggml-tiny-q5_1.bin",
+            "ggml-tiny.en-q5_1.bin",
+            "ggml-tiny-q8_0.bin",
+            "ggml-base.bin",
+            "ggml-base.en.bin",
+            "ggml-base-q5_1.bin",
+            "ggml-base.en-q5_1.bin",
+            "ggml-base-q8_0.bin",
+            "ggml-small.bin",
+            "ggml-small.en.bin",
+            "ggml-small.en-tdrz.bin",
+            "ggml-small-q5_1.bin",
+            "ggml-small.en-q5_1.bin",
+            "ggml-small-q8_0.bin",
+            "ggml-medium.bin",
+            "ggml-medium.en.bin",
+            "ggml-medium-q5_0.bin",
+            "ggml-medium.en-q5_0.bin",
+            "ggml-medium-q8_0.bin",
+            "ggml-large-v1.bin",
+            "ggml-large-v2.bin",
+            "ggml-large-v2-q5_0.bin",
+            "ggml-large-v3.bin",
+            "ggml-large-v3-q5_0.bin",
+            "ggml-large-v3-turbo.bin",
+            "ggml-large-v3-turbo-q5_0.bin"
+          ]
+        }
+      ],
+      "runtimes": [
+        {
+          "id": "whisper.cpp-win-x86_64-cpu",
+          "engineFamily": "whisper.cpp",
+          "label": "CPU",
+          "name": "CPU Whisper.cpp (x64)",
+          "asset": "whisper-bin-x64.zip",
+          "library": "whisper.dll",
+          "version": "v1.8.4",
+          "source": "https://github.com/ggml-org/whisper.cpp/releases/download/",
+          "type": "stt"
+        },
+        {
+          "id": "whisper.cpp-win-x86_64-cuda-12",
+          "engineFamily": "whisper.cpp",
+          "label": "CUDA 12",
+          "name": "CUDA 12 Whisper.cpp (x64)",
+          "asset": "whisper-cublas-12.4.0-bin-x64.zip",
+          "library": "whisper.dll",
+          "version": "v1.8.4",
+          "source": "https://github.com/ggml-org/whisper.cpp/releases/download/",
+          "type": "stt"
+        }
+      ],
+      "studio": {
+        "stt": {
+          "layout": "stt",
+          "action": "transcribe",
+          "inputs": [
+            "audio",
+            "language"
+          ],
+          "parameters": [
+            "threads",
+            "translate",
+            "strategy",
+            "detect_language",
+            "initial_prompt",
+            "n_max_text_ctx",
+            "offset_ms",
+            "duration_ms",
+            "no_context",
+            "no_timestamps",
+            "single_segment",
+            "print_special",
+            "print_progress",
+            "print_realtime",
+            "print_timestamps",
+            "token_timestamps",
+            "thold_pt",
+            "thold_ptsum",
+            "max_len",
+            "split_on_word",
+            "max_tokens",
+            "audio_ctx",
+            "debug_mode",
+            "suppress_blank",
+            "suppress_nst",
+            "temperature",
+            "max_initial_ts",
+            "length_penalty",
+            "temperature_inc",
+            "entropy_thold",
+            "logprob_thold",
+            "no_speech_thold",
+            "best_of",
+            "beam_size",
+            "beam_patience"
+          ]
+        }
+      }
+    }
+  ]
+}

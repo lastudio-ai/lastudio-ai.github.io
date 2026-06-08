@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LA Studio Model Catalog</title>
+    <meta name="description" content="Curated local speech, voice, and transcription models for LA Studio.">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="LA Studio home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span>LA Studio</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a class="active" href="./">Models</a>
+        <a href="https://github.com/lastudio-ai" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/dduongtrandai/LA-Studio" rel="noreferrer">Source</a>
+      </nav>
+      <a class="download-link" href="https://github.com/dduongtrandai/LA-Studio/releases" rel="noreferrer">
+        <span aria-hidden="true">↓</span>
+        Releases
+      </a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="mascot" aria-hidden="true">
+          <span class="mascot-core">LA</span>
+          <span class="signal signal-a"></span>
+          <span class="signal signal-b"></span>
+          <span class="signal signal-c"></span>
+        </div>
+        <h1 id="page-title">Model Catalog</h1>
+        <p>Curated local models for speech generation, voice cloning, voice design, and speech recognition.</p>
+      </section>
+
+      <section class="catalog-shell" aria-label="Model catalog">
+        <div class="catalog-toolbar">
+          <div class="search-box">
+            <label for="model-search">Search</label>
+            <input id="model-search" type="search" placeholder="Search models, tags, languages..." autocomplete="off">
+          </div>
+
+          <fieldset class="capability-filter">
+            <legend>Model capabilities</legend>
+            <label class="capability-chip">
+              <input type="checkbox" value="tts" checked>
+              <span class="icon icon-tts" aria-hidden="true">T</span>
+              TTS
+            </label>
+            <label class="capability-chip">
+              <input type="checkbox" value="voice-cloning" checked>
+              <span class="icon icon-clone" aria-hidden="true">C</span>
+              Cloning
+            </label>
+            <label class="capability-chip">
+              <input type="checkbox" value="voice-design" checked>
+              <span class="icon icon-design" aria-hidden="true">D</span>
+              Design
+            </label>
+            <label class="capability-chip">
+              <input type="checkbox" value="stt" checked>
+              <span class="icon icon-stt" aria-hidden="true">S</span>
+              STT
+            </label>
+          </fieldset>
+
+          <div class="sort-box">
+            <label for="sort-models">Sort</label>
+            <select id="sort-models">
+              <option value="featured">Featured</option>
+              <option value="name">Name</option>
+              <option value="parameters">Parameters</option>
+              <option value="files">Files</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="summary-row" aria-live="polite">
+          <span id="result-count">Loading models...</span>
+          <span id="catalog-version"></span>
+        </div>
+
+        <div id="model-list" class="model-list"></div>
+        <p id="empty-state" class="empty-state" hidden>No models match the current filters.</p>
+      </section>
+    </main>
+
+    <template id="model-card-template">
+      <article class="model-card">
+        <div class="model-topline">
+          <div>
+            <h2></h2>
+            <p class="model-id"></p>
+          </div>
+          <div class="capability-icons"></div>
+        </div>
+        <p class="description"></p>
+        <div class="meta-grid"></div>
+        <div class="tag-row"></div>
+        <details class="files-panel">
+          <summary>Files and variants</summary>
+          <div class="files-list"></div>
+        </details>
+        <div class="card-footer">
+          <a class="repo-link" rel="noreferrer">Open model</a>
+          <span class="updated-label"></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
