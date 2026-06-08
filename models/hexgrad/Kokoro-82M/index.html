@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kokoro (cstr/kokoro-82m-GGUF) - LA Studio Model Catalog</title>
-    <meta name="description" content="Small multilingual preset-voice TTS - A compact StyleTTS2-derived text-to-speech family driven through CrispASR v0.6.8 runtime DLLs. It uses one Kokoro backbone">
+    <title>Kokoro (hexgrad/Kokoro-82M) - LA Studio Model Catalog</title>
+    <meta name="description" content="Small multilingual preset-voice TTS - A compact open-weight TTS model with 82M parameters, installed in LA Studio through a Kokoro backbone GGUF plus a per-voic">
     <link rel="stylesheet" href="../../../styles.css">
   </head>
   <body>
@@ -94,6 +94,8 @@
           <aside id="model-detail-pane" class="model-detail-pane" hidden></aside>
         </div>
       </section>
+
+      <section id="model-page-layout" class="model-page-layout" hidden></section>
     </main>
 
     <template id="model-detail-template">
@@ -176,7 +178,7 @@
 
     <script>
       window.catalogUrl = "../../../data/catalog.json";
-      window.initialModelId = "cstr/kokoro-82m-GGUF";
+      window.initialModelId = "hexgrad/Kokoro-82M";
     </script>
     <script src="../../../app.js"></script>
   </body>

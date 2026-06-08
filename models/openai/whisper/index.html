@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Qwen3-TTS 1.7B VoiceDesign (cstr/qwen3-tts-1.7b-voicedesign-GGUF) - LA Studio Model Catalog</title>
-    <meta name="description" content="Voice generation from descriptions - Qwen3-TTS model specialized in zero-shot voice design from text instructions. Outputs high-fidelity 24kHz audio matching yo">
+    <title>Whisper.cpp (openai/whisper) - LA Studio Model Catalog</title>
+    <meta name="description" content="Offline multilingual speech recognition and translation - Native C/C++ inference for OpenAI Whisper models converted to the custom ggml format. Supports multili">
     <link rel="stylesheet" href="../../../styles.css">
   </head>
   <body>
@@ -94,6 +94,8 @@
           <aside id="model-detail-pane" class="model-detail-pane" hidden></aside>
         </div>
       </section>
+
+      <section id="model-page-layout" class="model-page-layout" hidden></section>
     </main>
 
     <template id="model-detail-template">
@@ -176,7 +178,7 @@
 
     <script>
       window.catalogUrl = "../../../data/catalog.json";
-      window.initialModelId = "cstr/qwen3-tts-1.7b-voicedesign-GGUF";
+      window.initialModelId = "openai/whisper";
     </script>
     <script src="../../../app.js"></script>
   </body>
